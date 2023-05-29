@@ -1,1 +1,71 @@
-<h1>カレンダーindex</h1>
+<div class="container">
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="schedule">
+          <h3>今後の予定一覧</h3>
+        </div>
+        <table class="table mb-4">
+          <thead class="thead-light">
+            <tr>
+              <th>タイトル</th>
+              <th>日程</th>
+            </tr>
+          </thead>
+          <tbody>
+
+              <% @calendars.each do |calendar| %>
+              <tr>
+                <td>
+                  <%= link_to calendar_path(calendar.id) do %>
+                    <%= calendar.title %>
+                  <% end %>
+                </td>
+                <td><%= calendar.start_time.strftime("%m月%d日") %></td>
+              </tr>
+              <% end %>
+
+          </tbody>
+        </table>
+        <%= form_with model: @calendar, url: calendars_path do |f| %>
+        <div class="form-group row">
+          <%= f.label :title, "タイトル", class: "col-form-label pb-2" %>
+          <div class="col-12">
+            <%= f.text_field :title, :placeholder =>"タイトル", autofocus: true, autocomplete: "title", class: "form-control mb-2" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <%= f.label :body, "内容", class: "col-form-label pb-2" %>
+          <div class="col-12">
+            <%= f.text_field :body, :placeholder =>"内容", autofocus: true, autocomplete: "body", class: "form-control mb-2" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :start_time, "時間", class: "col-form-label pb-2" %>
+          <div class="col-12">
+            <%= f.datetime_select :start_time %>
+          </div>
+        </div>
+
+        <div class="submit">
+          <%= f.submit "追加", class: 'btn btn-primary mt-2' %>
+        </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-8">
+      <%= month_calendar events: @calendars do |date, calendars| %>
+        <%= date.day %>
+        <% calendars.each do |calendar| %>
+        <div>
+          <%= link_to calendar_path(calendar.id) do %>
+            <%= calendar.title %>
+          <% end %>
+        </div>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

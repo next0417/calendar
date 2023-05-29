@@ -6,11 +6,20 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="fw-bolder">
+    <header>
+      <nav class="nav navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand">
+            <h4 class="text-black font-italic">カレンダー</h4>
+          </a>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>
